@@ -12,6 +12,8 @@ from amulet.zlib import (
     compress_gzip,
 )
 
+from test_amulet_zlib.test_zlib_ import test_cpp_zlib, test_cpp_gzip, test_cpp_zip_bomb
+
 
 class ZlibTest(TestCase):
     def test_zlib_compress(self) -> None:
@@ -60,3 +62,12 @@ class ZlibTest(TestCase):
 
         set_max_decompression_size(100_000_000)
         self.assertEqual(100_000_000, get_max_decompression_size())
+
+    def test_cpp_zlib(self) -> None:
+        test_cpp_zlib()
+
+    def test_cpp_gzip(self) -> None:
+        test_cpp_gzip()
+
+    def test_cpp_zip_bomb(self) -> None:
+        test_cpp_zip_bomb()
