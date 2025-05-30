@@ -4,6 +4,9 @@ import gzip
 import os
 
 from amulet.zlib import (
+    ZipBombException,
+    get_max_decompression_size,
+    set_max_decompression_size,
     decompress_zlib_gzip,
     compress_zlib,
     compress_gzip,
@@ -30,3 +33,30 @@ class ZlibTest(TestCase):
         src = os.urandom(10_000_000)
         compressed = gzip.compress(src)
         self.assertEqual(src, decompress_zlib_gzip(compressed))
+
+    def test_zip_bomb_false(self) -> None:
+        src = b"\x00" * 100_000_000
+        compressed_gzip = gzip.compress(src)
+        compressed_zlib = zlib.compress(src)
+        self.assertEqual(src, decompress_zlib_gzip(compressed_gzip))
+        self.assertEqual(src, decompress_zlib_gzip(compressed_zlib))
+
+    def test_zip_bomb_true(self) -> None:
+        # to trigger the zip bomb error it must be at least one chunk size larger than the configured size
+        src = b"\x00" * 100_100_000
+        compressed_gzip = gzip.compress(src)
+        compressed_zlib = zlib.compress(src)
+        with self.assertRaises(ZipBombException):
+            decompress_zlib_gzip(compressed_gzip)
+        with self.assertRaises(ZipBombException):
+            decompress_zlib_gzip(compressed_zlib)
+
+        self.assertEqual(100_000_000, get_max_decompression_size())
+        set_max_decompression_size(100_100_000)
+        self.assertEqual(100_100_000, get_max_decompression_size())
+
+        self.assertEqual(src, decompress_zlib_gzip(compressed_gzip))
+        self.assertEqual(src, decompress_zlib_gzip(compressed_zlib))
+
+        set_max_decompression_size(100_000_000)
+        self.assertEqual(100_000_000, get_max_decompression_size())

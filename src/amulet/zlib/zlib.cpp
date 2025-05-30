@@ -15,6 +15,18 @@ static_assert(DST_CHUNK_SIZE <= std::numeric_limits<uInt>::max());
 namespace Amulet {
 namespace zlib {
 
+    static size_t _max_decompression_size = 100000000; // 100MB
+
+    size_t get_max_decompression_size()
+    {
+        return _max_decompression_size;
+    }
+
+    void set_max_decompression_size(size_t max_decompression_size)
+    {
+        _max_decompression_size = max_decompression_size;
+    }
+
     void decompress_zlib_gzip(const std::string_view src, std::string& dst)
     {
         // Initialise the stream
@@ -29,6 +41,7 @@ namespace zlib {
         }
 
         size_t src_index = 0;
+        size_t dst_start_size = dst.size();
         size_t dst_index = dst.size();
         int err;
 
@@ -41,6 +54,10 @@ namespace zlib {
             src_index += stream.avail_in;
 
             do {
+                // zip bomb check
+                if (_max_decompression_size < dst_index - dst_start_size) {
+                    throw ZipBombException("Decompression requires more memory than the configured maximum.");
+                }
                 // allocate data after dst
                 dst.resize(dst_index + DST_CHUNK_SIZE);
                 // Assign the location to decompress into
