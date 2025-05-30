@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from src.amulet.zlib import _version
+from amulet.zlib import _version
 
 __version__ = _version.get_versions()["version"]
 
