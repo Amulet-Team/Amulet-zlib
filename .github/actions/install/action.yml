@@ -3,12 +3,16 @@ description: 'Build, publish and install this library specialised for the instal
 inputs:
   twine-username:
     description: 'The twine username'
+    required: true
   twine-password:
     description: 'The twine password'
+    required: true
   compiler-specifier:
     description: 'The PEP 440 version specifier for the compiler library'
+    required: true
   zlib-specifier:
     description: 'The PEP 440 version specifier for the zlib library'
+    required: true
 outputs:
   version:
     description: "The version number of the installed library."
