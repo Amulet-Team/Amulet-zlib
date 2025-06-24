@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     def compress_zlib(src: bytes) -> bytes: ...
     def compress_gzip(src: bytes) -> bytes: ...
 
+
 # init a default logger
 _logging.basicConfig(level=_logging.INFO, format="%(levelname)s - %(message)s")
 
