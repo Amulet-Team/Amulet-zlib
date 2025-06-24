@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING
+import logging as _logging
 
-from amulet.zlib import _version
+from . import _version
 
 __version__ = _version.get_versions()["version"]
 
@@ -15,6 +16,10 @@ if TYPE_CHECKING:
     def decompress_zlib_gzip(src: bytes) -> bytes: ...
     def compress_zlib(src: bytes) -> bytes: ...
     def compress_gzip(src: bytes) -> bytes: ...
+
+
+# init a default logger
+_logging.basicConfig(level=_logging.INFO, format="%(levelname)s - %(message)s")
 
 
 def _init() -> None:
