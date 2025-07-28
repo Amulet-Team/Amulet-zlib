@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import typing
+
 from . import _amulet_zlib, _version
 
 __all__ = [
@@ -37,7 +39,7 @@ def get_max_decompression_size() -> int:
     Get the configured maximum decompressed size in bytes. (Default 100MB)
     """
 
-def set_max_decompression_size(arg0: int) -> None:
+def set_max_decompression_size(arg0: typing.SupportsInt) -> None:
     """
     Set the configured maximum decompressed size in bytes.
     If decompression requires more memory than this it will raise ZipBombException.
