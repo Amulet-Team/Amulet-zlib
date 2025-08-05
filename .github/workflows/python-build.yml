@@ -12,8 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ '3.11', '3.12' ]
-        os: [ macos-14, windows-latest ]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
 
     runs-on: ${{ matrix.os }}
     defaults:
@@ -27,7 +26,6 @@ jobs:
     - name: Install dependencies
       uses: ./.github/actions/install-dependencies
       with:
-        python-version: ${{ matrix.python-version }}
         username: ${{ secrets.PYPI_USERNAME }}
         compiler-version-password: ${{ secrets.AMULET_COMPILER_VERSION_PYPI_PASSWORD }}
 
@@ -39,7 +37,7 @@ jobs:
       env:
         AMULET_FREEZE_COMPILER: 1
       run: |
-        python -m build --wheel .
+        python -m cibuildwheel --output-dir dist .
 
     - name: Publish
       env:
