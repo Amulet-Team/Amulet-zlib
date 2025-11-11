@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef AMULET_ZLIB_EXPORT
     #ifdef _WIN32
         #ifdef ExportAmuletZlib
