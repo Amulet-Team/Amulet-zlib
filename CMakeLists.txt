@@ -41,6 +41,8 @@ set(ZLIB_USE_STATIC_LIBS ON)
 set(ZLIB_LIBRARY ${INSTALL_LIB_DIR})
 find_package(ZLIB REQUIRED)
 target_compile_definitions(zlibstatic PUBLIC ZLIB_CONST)
+set_target_properties(zlib PROPERTIES FOLDER "ThirdParty")
+set_target_properties(zlibstatic PROPERTIES FOLDER "ThirdParty")
 
 # Find libraries
 if (NOT TARGET pybind11::module)
@@ -62,6 +64,7 @@ list(REMOVE_ITEM HEADERS ${EXTENSION_HEADERS})
 # Add implementation
 add_library(amulet_zlib SHARED)
 target_link_libraries( amulet_zlib PRIVATE zlibstatic )
+set_target_properties(amulet_zlib PROPERTIES FOLDER "CPP")
 target_compile_definitions(amulet_zlib PRIVATE ExportAmuletZlib)
 target_include_directories(amulet_zlib PUBLIC ${SOURCE_PATH})
 target_sources(amulet_zlib PRIVATE ${SOURCES} ${HEADERS})
@@ -74,6 +77,7 @@ endforeach()
 
 # Add python extension
 pybind11_add_module(_amulet_zlib)
+set_target_properties(_amulet_zlib PROPERTIES FOLDER "Python")
 target_link_libraries(_amulet_zlib PRIVATE amulet_pybind11_extensions)
 target_link_libraries(_amulet_zlib PRIVATE amulet_zlib)
 target_compile_definitions(_amulet_zlib PRIVATE PYBIND11_DETAILED_ERROR_MESSAGES)
