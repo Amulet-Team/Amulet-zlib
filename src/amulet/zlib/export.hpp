@@ -13,7 +13,7 @@
 #endif
 
 #if !defined(AMULET_ZLIB_EXPORT_EXCEPTION)
-    #if defined(_LIBCPP_EXCEPTION)
+    #if defined(__GNUC__) || defined(__clang__)
         #define AMULET_ZLIB_EXPORT_EXCEPTION __attribute__((visibility("default")))
     #else
         #define AMULET_ZLIB_EXPORT_EXCEPTION
