@@ -23,8 +23,10 @@ from test_amulet_zlib.test_zlib_ import (
 def throw_zipbomb_py_1():
     raise ZipBombException
 
+
 def throw_zipbomb_py_2():
     raise ZipBombException("throw_zipbomb_py_2")
+
 
 def catch_zipbomb_py(func):
     try:
