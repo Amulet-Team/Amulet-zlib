@@ -43,6 +43,7 @@ jobs:
     - name: Build
       run: |
         pip install -v .[dev]
+        pip install pybind11
         python tools/compile_tests.py
         
     - name: Test with unittest
