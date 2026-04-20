@@ -30,7 +30,6 @@ else:
 class CMakeBuild(BuildExt):
     def build_extension(self, ext: Extension) -> None:
         import pybind11
-        import amulet.pybind11_extensions
 
         ext_dir = (
             (Path.cwd() / self.get_ext_fullpath("")).parent.resolve()
@@ -66,7 +65,6 @@ class CMakeBuild(BuildExt):
                     *platform_args,
                     f"-DPython3_EXECUTABLE={fix_path(sys.executable)}",
                     f"-Dpybind11_DIR={fix_path(pybind11.get_cmake_dir())}",
-                    f"-Damulet_pybind11_extensions_DIR={fix_path(amulet.pybind11_extensions.__path__[0])}",
                     f"-Damulet_zlib_DIR={fix_path(zlib_src_dir)}",
                     f"-DAMULET_ZLIB_EXT_DIR={fix_path(ext_dir)}",
                     f"-DCMAKE_INSTALL_PREFIX=install",

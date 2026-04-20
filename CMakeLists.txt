@@ -28,30 +28,9 @@ endif()
 
 find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 
-include(FetchContent)
-
-# Add zlib
-set(ZLIB_BUILD_EXAMPLES OFF)
-FetchContent_Declare(
-  zlib
-  GIT_REPOSITORY https://github.com/madler/zlib.git
-  GIT_TAG        51b7f2abdade71cd9bb0e7a373ef2610ec6f9daf
-)
-FetchContent_MakeAvailable(zlib)
-set(ZLIB_ROOT ${zlib_SOURCE_DIR})
-set(ZLIB_USE_STATIC_LIBS ON)
-set(ZLIB_LIBRARY ${INSTALL_LIB_DIR})
-find_package(ZLIB REQUIRED)
-target_compile_definitions(zlibstatic PUBLIC ZLIB_CONST)
-set_target_properties(zlib PROPERTIES FOLDER "ThirdParty")
-set_target_properties(zlibstatic PROPERTIES FOLDER "ThirdParty")
-
 # Find libraries
 if (NOT TARGET pybind11::module)
     find_package(pybind11 CONFIG REQUIRED)
-endif()
-if (NOT TARGET amulet_pybind11_extensions)
-    find_package(amulet_pybind11_extensions CONFIG REQUIRED)
 endif()
 
 # Find C++ files
@@ -65,7 +44,6 @@ list(REMOVE_ITEM HEADERS ${EXTENSION_HEADERS})
 
 # Add implementation
 add_library(amulet_zlib SHARED)
-target_link_libraries( amulet_zlib PRIVATE zlibstatic )
 set_target_properties(amulet_zlib PROPERTIES FOLDER "CPP")
 target_compile_definitions(amulet_zlib PRIVATE ExportAmuletZlib)
 target_include_directories(amulet_zlib PUBLIC ${SOURCE_PATH})
@@ -80,12 +58,8 @@ endforeach()
 # Add python extension
 pybind11_add_module(_amulet_zlib)
 set_target_properties(_amulet_zlib PROPERTIES FOLDER "Python")
-target_link_libraries(_amulet_zlib PRIVATE amulet_pybind11_extensions)
 target_link_libraries(_amulet_zlib PRIVATE amulet_zlib)
 target_compile_definitions(_amulet_zlib PRIVATE PYBIND11_DETAILED_ERROR_MESSAGES)
-target_compile_definitions(_amulet_zlib PRIVATE PYBIND11_VERSION="${pybind11_VERSION}")
-target_compile_definitions(_amulet_zlib PRIVATE COMPILER_ID="${CMAKE_CXX_COMPILER_ID}")
-target_compile_definitions(_amulet_zlib PRIVATE COMPILER_VERSION="${CMAKE_CXX_COMPILER_VERSION}")
 target_sources(_amulet_zlib PRIVATE ${EXTENSION_SOURCES} ${EXTENSION_HEADERS})
 foreach(FILE ${EXTENSION_SOURCES} ${EXTENSION_HEADERS})
     file(RELATIVE_PATH REL_PATH ${SOURCE_PATH} ${FILE})

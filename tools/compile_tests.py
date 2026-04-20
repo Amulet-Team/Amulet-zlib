@@ -5,8 +5,6 @@ import os
 import sysconfig
 
 import pybind11
-import amulet.pybind11_extensions
-import amulet.test_utils
 import amulet.zlib
 
 
@@ -43,8 +41,6 @@ def main() -> None:
             *platform_args,
             f"-DPython3_EXECUTABLE={fix_path(sys.executable)}",
             f"-Dpybind11_DIR={fix_path(pybind11.get_cmake_dir())}",
-            f"-Damulet_pybind11_extensions_DIR={fix_path(amulet.pybind11_extensions.__path__[0])}",
-            f"-Damulet_test_utils_DIR={fix_path(amulet.test_utils.__path__[0])}",
             f"-Damulet_zlib_DIR={fix_path(amulet.zlib.__path__[0])}",
             f"-DCMAKE_INSTALL_PREFIX=install",
             "-B",
