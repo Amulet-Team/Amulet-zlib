@@ -5,6 +5,8 @@
 namespace Amulet {
 namespace zlib {
 
+    ZipBombException::~ZipBombException(){}
+
     void throw_zipbomb_exported(){
         throw ZipBombException("throw_zipbomb_exported");
     }

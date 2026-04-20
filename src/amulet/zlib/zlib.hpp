@@ -11,6 +11,7 @@ namespace zlib {
     class AMULET_ZLIB_EXPORT_EXCEPTION ZipBombException : public std::runtime_error {
     public:
         using std::runtime_error::runtime_error;
+        virtual ~ZipBombException();
     };
 
     AMULET_ZLIB_EXPORT void throw_zipbomb_exported();
