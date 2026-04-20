@@ -41,10 +41,13 @@ jobs:
         architecture: ${{ matrix.cfg.architecture }}
         
     - name: Build library
-      env:
-        BUILD_AMULET_ZLIB_TESTS: "1"
       run: |
         pip install -vvvv .[dev]
+
+    - name: Build tests
+      run: |
+        pip install pybind11
+        python tools/compile_tests.py
         
     - name: Test with unittest
       run: python -m unittest discover -v -s tests
