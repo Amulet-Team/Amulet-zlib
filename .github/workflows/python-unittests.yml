@@ -40,9 +40,12 @@ jobs:
         python-version: ${{ matrix.cfg.python-version }}
         architecture: ${{ matrix.cfg.architecture }}
         
-    - name: Build
+    - name: Build library
       run: |
-        pip install -v .[dev]
+        pip install -vvvv .[dev]
+
+    - name: Build tests
+      run: |
         pip install pybind11
         python tools/compile_tests.py
         
