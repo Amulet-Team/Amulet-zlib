@@ -9,14 +9,6 @@
             #define AMULET_ZLIB_EXPORT __declspec(dllimport)
         #endif
     #else
-        #define AMULET_ZLIB_EXPORT
-    #endif
-#endif
-
-#if !defined(AMULET_ZLIB_EXPORT_EXCEPTION)
-    #if !defined(_WIN32)
-        #define AMULET_ZLIB_EXPORT_EXCEPTION __attribute__((visibility("default")))
-    #else
-        #define AMULET_ZLIB_EXPORT_EXCEPTION
+        #define AMULET_ZLIB_EXPORT __attribute__((visibility("default")))
     #endif
 #endif
