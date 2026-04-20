@@ -44,6 +44,7 @@ list(REMOVE_ITEM HEADERS ${EXTENSION_HEADERS})
 
 # Add implementation
 add_library(amulet_zlib SHARED)
+set_target_properties(amulet_zlib PROPERTIES CXX_VISIBILITY_PRESET hidden)
 set_target_properties(amulet_zlib PROPERTIES FOLDER "CPP")
 target_compile_definitions(amulet_zlib PRIVATE ExportAmuletZlib)
 target_include_directories(amulet_zlib PUBLIC ${SOURCE_PATH})
@@ -57,6 +58,7 @@ endforeach()
 
 # Add python extension
 pybind11_add_module(_amulet_zlib)
+set_target_properties(_amulet_zlib PROPERTIES CXX_VISIBILITY_PRESET hidden)
 set_target_properties(_amulet_zlib PROPERTIES FOLDER "Python")
 target_link_libraries(_amulet_zlib PRIVATE amulet_zlib)
 target_compile_definitions(_amulet_zlib PRIVATE PYBIND11_DETAILED_ERROR_MESSAGES)
