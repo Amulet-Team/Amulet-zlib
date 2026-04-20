@@ -1,4 +1,5 @@
 #pragma once
+#include <exception>
 
 #ifndef AMULET_ZLIB_EXPORT
     #ifdef _WIN32
