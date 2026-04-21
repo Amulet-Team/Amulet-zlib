@@ -1,22 +1,8 @@
-from typing import TYPE_CHECKING
 import logging as _logging
 
 from . import _version
 
 __version__ = _version.get_versions()["version"]
-
-if TYPE_CHECKING:
-
-    class ZipBombException(RuntimeError):
-        pass
-
-    def get_max_decompression_size() -> int: ...
-    def set_max_decompression_size(max_decompression_size: int) -> None: ...
-
-    def decompress_zlib_gzip(src: bytes) -> bytes: ...
-    def compress_zlib(src: bytes) -> bytes: ...
-    def compress_gzip(src: bytes) -> bytes: ...
-
 
 # init a default logger
 _logging.basicConfig(level=_logging.INFO, format="%(levelname)s - %(message)s")
@@ -26,6 +12,9 @@ def _init() -> None:
     import os
     import sys
     import ctypes
+
+    if os.environ.get("AMULET_SKIP_COMPILE", None):
+        return
 
     if sys.platform == "win32":
         lib_path = os.path.join(os.path.dirname(__file__), "amulet_zlib.dll")
@@ -45,3 +34,4 @@ def _init() -> None:
 
 
 _init()
+del _init
