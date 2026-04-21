@@ -9,9 +9,11 @@
 namespace Amulet {
 namespace zlib {
 
-    class AMULET_ZLIB_EXPORT_EXCEPTION ZipBombException : public std::runtime_error {
+    class AMULET_ZLIB_EXPORT ZipBombException : public std::runtime_error {
     public:
-        using std::runtime_error::runtime_error;
+        ZipBombException(const std::string& what_arg);
+        ZipBombException(const char* what_arg);
+        ZipBombException(const ZipBombException& other) noexcept;
     };
 
     // Get the configured maximum decompressed size in bytes. (Default 100MB)
