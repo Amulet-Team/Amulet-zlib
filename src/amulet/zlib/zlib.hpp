@@ -11,9 +11,8 @@ namespace zlib {
 
     class AMULET_ZLIB_EXPORT ZipBombException : public std::runtime_error {
     public:
-        ZipBombException(const std::string& what_arg);
-        ZipBombException(const char* what_arg);
-        ZipBombException(const ZipBombException& other) noexcept;
+        using std::runtime_error::runtime_error;
+        virtual ~ZipBombException() noexcept;
     };
 
     // Get the configured maximum decompressed size in bytes. (Default 100MB)

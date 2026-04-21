@@ -15,9 +15,7 @@ static_assert(DST_CHUNK_SIZE <= std::numeric_limits<uInt>::max());
 namespace Amulet {
 namespace zlib {
 
-    ZipBombException::ZipBombException(const std::string& what_arg) : std::runtime_error(what_arg) {}
-    ZipBombException::ZipBombException(const char* what_arg) : std::runtime_error(what_arg) {}
-    ZipBombException::ZipBombException(const ZipBombException& other) noexcept : std::runtime_error(other) {}
+    ZipBombException::~ZipBombException() noexcept {}
 
     static size_t _max_decompression_size = 100000000; // 100MB
 
