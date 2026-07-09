@@ -70,7 +70,6 @@ class CMakeBuild(BuildExt):
                     f"-Damulet_zlib_DIR={fix_path(zlib_src_dir)}",
                     f"-DAMULET_ZLIB_EXT_DIR={fix_path(ext_dir)}",
                     f"-DCMAKE_INSTALL_PREFIX=install",
-                    f"-DBUILD_AMULET_ZLIB_TESTS={"ON" if os.environ.get("BUILD_AMULET_ZLIB_TESTS") else "OFF"}",
                     "-B",
                     tempdir,
                 ]

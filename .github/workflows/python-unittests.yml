@@ -41,5 +41,3 @@ jobs:
       uses: pypa/cibuildwheel@v4.1
       with:
         only: ${{ matrix.cfg.whl }}
-      env:
-        BUILD_AMULET_ZLIB_TESTS: "1"
