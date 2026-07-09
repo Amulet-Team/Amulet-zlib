@@ -39,6 +39,16 @@ jobs:
       with:
         python-version: ${{ matrix.cfg.python-version }}
         architecture: ${{ matrix.cfg.architecture }}
+
+    - name: Build sdist
+      run: |
+        pip install build
+        python -m build --sdist --outdir dist .
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v7
+      with:
+        path: dist/*
         
     - name: Build
       run: |
