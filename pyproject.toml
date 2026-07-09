@@ -85,7 +85,7 @@ test-command = [
 before-all = "yum install -y cmake"
 
 [tool.cibuildwheel.windows]
-repair-wheel-command = "delvewheel repair --ignore-existing -w {dest_dir} -v {wheel}"
+repair-wheel-command = "delvewheel repair --ignore-existing --exclude msvcp140.dll -w {dest_dir} -v {wheel}"
 test-command = [
     "python -m venv {project}/venv_build",
     "{project}/venv_build/Scripts/pip install {wheel}[dev]",
