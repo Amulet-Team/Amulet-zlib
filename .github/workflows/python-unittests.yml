@@ -42,4 +42,4 @@ jobs:
       with:
         only: ${{ matrix.cfg.whl }}
       env:
-        BUILD_AMULET_ZLIB_TESTS=1
+        BUILD_AMULET_ZLIB_TESTS: "1"

@@ -34,7 +34,7 @@ jobs:
       uses: pypa/cibuildwheel@v4.1
       with:
         output-dir: dist
-        only: "cp314-manylinux_x86_64"
+        only: ${{ matrix.cfg.whl }}
       env:
         CIBW_TEST_COMMAND: ""
 
