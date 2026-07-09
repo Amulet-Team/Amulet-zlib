@@ -37,7 +37,13 @@ jobs:
         python-version: ${{ matrix.cfg.python-version }}
         architecture: ${{ matrix.cfg.architecture }}
 
-    - name: Build
+    - name: Build and Test
       uses: pypa/cibuildwheel@v4.1
       with:
+        output-dir: dist
         only: ${{ matrix.cfg.whl }}
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v7
+      with:
+        path: dist/*
