@@ -4,7 +4,7 @@ import typing
 
 from . import _amulet_zlib, _version
 
-__all__ = [
+__all__: list[str] = [
     "ZipBombException",
     "compiler_config",
     "compress_gzip",
@@ -17,7 +17,6 @@ __all__ = [
 class ZipBombException(Exception):
     pass
 
-def _init() -> None: ...
 def compress_gzip(arg0: bytes) -> bytes:
     """
     Compress a bytes object using the gzip compression format.

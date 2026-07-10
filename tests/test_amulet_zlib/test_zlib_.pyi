@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-__all__ = ["test_cpp_gzip", "test_cpp_zip_bomb", "test_cpp_zlib"]
+__all__: list[str] = ["test_cpp_gzip", "test_cpp_zip_bomb", "test_cpp_zlib"]
 
 def test_cpp_gzip() -> None: ...
 def test_cpp_zip_bomb() -> None: ...
