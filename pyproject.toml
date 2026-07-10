@@ -89,7 +89,7 @@ before-all = "yum install -y cmake"
 repair-wheel-command = "delvewheel repair --ignore-existing --exclude msvcp140.dll -w {dest_dir} -v {wheel}"
 test-command = [
     "python -m venv venv_build",
-    "venv_build\Scripts\pip install {wheel}[dev]",
-    "venv_build\Scripts\python tools/compile_tests.py",
+    "venv_build\\Scripts\\pip install {wheel}[dev]",
+    "venv_build\\Scripts\\python tools/compile_tests.py",
     "python -m unittest discover -s tests"
 ]
