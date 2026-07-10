@@ -88,6 +88,7 @@ class CMakeBuild(BuildExt):
 cmdclass["build_ext"] = CMakeBuild  # type: ignore
 
 
+print("args", sys.argv)
 setup(
     version=versioneer.get_version(),
     cmdclass=cmdclass,
