@@ -74,11 +74,12 @@ tag_prefix = ""
 parentdir_prefix = "amulet_zlib-"
 
 [tool.cibuildwheel]
+test-sources = ["tests", "tools/compile_tests.py"]
 test-command = [
-    "python -m venv {project}/venv_build",
-    "{project}/venv_build/bin/pip install {wheel}[dev]",
-    "{project}/venv_build/bin/python {project}/tools/compile_tests.py",
-    "python -m unittest discover -s {project}/tests"
+    "python -m venv venv_build",
+    venv_build/bin/pip install {wheel}[dev]",
+    venv_build/bin/python tools/compile_tests.py",
+    "python -m unittest discover -s tests"
 ]
 
 [tool.cibuildwheel.linux]
@@ -87,8 +88,8 @@ before-all = "yum install -y cmake"
 [tool.cibuildwheel.windows]
 repair-wheel-command = "delvewheel repair --ignore-existing --exclude msvcp140.dll -w {dest_dir} -v {wheel}"
 test-command = [
-    "python -m venv {project}/venv_build",
-    "{project}/venv_build/Scripts/pip install {wheel}[dev]",
-    "{project}/venv_build/Scripts/python {project}/tools/compile_tests.py",
-    "python -m unittest discover -s {project}/tests"
+    "python -m venv venv_build",
+    venv_build/Scripts/pip install {wheel}[dev]",
+    venv_build/Scripts/python tools/compile_tests.py",
+    "python -m unittest discover -s tests"
 ]
