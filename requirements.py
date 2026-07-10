@@ -40,10 +40,10 @@ def get_build_dependencies() -> list:
     ] * (not os.environ.get("AMULET_SKIP_COMPILE", None))
 
 
-def get_runtime_dependencies() -> list[str]:
+def get_runtime_dependencies(sdist: bool = False) -> list[str]:
     return [
         f"amulet-compiler-target{AMULET_COMPILER_TARGET_REQUIREMENT}",
-        f"amulet-compiler-version{get_compiler.main()}",
+        f"amulet-compiler-version{get_compiler.main(sdist)}",
         f"pybind11{PYBIND11_REQUIREMENT}",
         f"amulet-pybind11-extensions{AMULET_PYBIND11_EXTENSIONS_REQUIREMENT}",
     ]
