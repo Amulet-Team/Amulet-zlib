@@ -37,15 +37,10 @@ jobs:
         python-version: ${{ matrix.cfg.python-version }}
         architecture: ${{ matrix.cfg.architecture }}
 
-    - name: Build sdist
-      run: |
-        pip install build
-        python -m build --sdist --outdir dist .
-
     - name: Build and Test
       run: |
         pip install cibuildwheel~=4.1
-        cibuildwheel dist/*.tar.gz --only ${{ matrix.cfg.whl }} --output-dir dist
+        cibuildwheel --only ${{ matrix.cfg.whl }} --output-dir dist .
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v7

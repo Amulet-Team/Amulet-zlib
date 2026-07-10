@@ -40,7 +40,7 @@ jobs:
         CIBW_TEST_COMMAND: ""
       run: |
         pip install cibuildwheel~=4.1
-        cibuildwheel dist/*.tar.gz --only ${{ matrix.cfg.whl }} --output-dir dist
+        cibuildwheel --only ${{ matrix.cfg.whl }} --output-dir dist .
 
     - name: Install twine
       shell: bash
