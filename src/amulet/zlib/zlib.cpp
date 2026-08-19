@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <string>
 #include <string_view>
+#include <atomic>
 
 #include <zlib.h>
 
@@ -17,7 +18,7 @@ namespace zlib {
 
     ZipBombException::~ZipBombException() noexcept {}
 
-    static size_t _max_decompression_size = 100000000; // 100MB
+    static std::atomic_size_t _max_decompression_size = 100000000; // 100MB
 
     size_t get_max_decompression_size()
     {
@@ -46,6 +47,7 @@ namespace zlib {
         size_t dst_start_size = dst.size();
         size_t dst_index = dst.size();
         int err;
+        size_t max_decompression_size = _max_decompression_size;
 
         do {
             stream.avail_in = static_cast<uInt>(std::min<size_t>(src.size() - src_index, MAX_AVAIL_IN));
@@ -57,7 +59,7 @@ namespace zlib {
 
             do {
                 // zip bomb check
-                if (_max_decompression_size < dst_index - dst_start_size) {
+                if (max_decompression_size < dst_index - dst_start_size) {
                     throw ZipBombException("Decompression requires more memory than the configured maximum.");
                 }
                 // allocate data after dst
