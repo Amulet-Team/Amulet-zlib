@@ -28,6 +28,15 @@ endif()
 
 find_package(Python3 COMPONENTS Interpreter Development.Module REQUIRED)
 
+# Find libraries
+if (NOT TARGET pybind11::module)
+    find_package(pybind11 CONFIG REQUIRED)
+endif()
+if (NOT TARGET amulet_pybind11_extensions)
+    find_package(amulet_pybind11_extensions CONFIG REQUIRED)
+endif()
+
+
 include(FetchContent)
 
 # Add zlib
@@ -46,14 +55,6 @@ target_compile_definitions(zlibstatic PUBLIC ZLIB_CONST)
 set_target_properties(zlib PROPERTIES FOLDER "ThirdParty")
 set_target_properties(zlibstatic PROPERTIES FOLDER "ThirdParty")
 
-# Find libraries
-if (NOT TARGET pybind11::module)
-    find_package(pybind11 CONFIG REQUIRED)
-endif()
-if (NOT TARGET amulet_pybind11_extensions)
-    find_package(amulet_pybind11_extensions CONFIG REQUIRED)
-endif()
-
 # Find C++ files
 file(REAL_PATH src SOURCE_PATH)
 file(GLOB_RECURSE EXTENSION_SOURCES LIST_DIRECTORIES false ${SOURCE_PATH}/amulet/zlib/*.py.cpp)
@@ -69,7 +70,7 @@ target_link_libraries( amulet_zlib PRIVATE zlibstatic )
 set_target_properties(amulet_zlib PROPERTIES CXX_VISIBILITY_PRESET hidden)
 set_target_properties(amulet_zlib PROPERTIES FOLDER "CPP")
 target_compile_definitions(amulet_zlib PRIVATE ExportAmuletZlib)
-target_include_directories(amulet_zlib PUBLIC ${SOURCE_PATH})
+target_include_directories(amulet_zlib PUBLIC "${SOURCE_PATH}")
 foreach(FILE ${SOURCES} ${HEADERS})
     file(RELATIVE_PATH REL_PATH ${SOURCE_PATH} ${FILE})
     get_filename_component(GROUP ${REL_PATH} DIRECTORY)
