@@ -38,7 +38,7 @@ def get_max_decompression_size() -> int:
     Get the configured maximum decompressed size in bytes. (Default 100MB)
     """
 
-def set_max_decompression_size(arg0: typing.SupportsInt) -> None:
+def set_max_decompression_size(arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
     """
     Set the configured maximum decompressed size in bytes.
     If decompression requires more memory than this it will raise ZipBombException.
